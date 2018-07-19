@@ -33,3 +33,6 @@ const args = yargs
 
 	// 命令行以字符串解析
 	.argv
+
+// 切记
+export default args;

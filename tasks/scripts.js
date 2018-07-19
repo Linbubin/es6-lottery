@@ -11,32 +11,33 @@ import uglify from 'gulp-uglify'; // 压缩js css
 import { log, colors } from 'gulp-util';
 import args from './util/args';// 命令行解析
 
-gulp.task('script', () => {
+gulp.task('scripts',()=>{
 	return gulp.src(['app/js/index.js'])
-	.pipe(plumber({
-		errorHandler: function(){
-
+	  .pipe(plumber({
+		errorHandle:function(){
+  
 		}
-	}))
-	.pipe(named())
-	.pipe(gulpWebpack({
+	  }))
+	  .pipe(named())
+	  .pipe(gulpWebpack({
 		module:{
-			loaders:[{
-				test: /\.js$/,
-				loader: 'babel'
-			}]
+		  loaders:[{
+			test:/\.js$/,
+			loader:'babel'
+		  }]
 		}
-	}),null,(err,stats)=>{
-		log(`Finished '${colors.cyan('scripts')}'`, stats, toString({
-			chunks: false
+	  }),null,(err,stats)=>{
+		log(`Finished '${colors.cyan('scripts')}'`,stats.toString({
+		  chunks:false
 		}))
-	})
-	.pipe(gulp.dest('server/public/js'))
-	.pipe(rename({
+	  })
+	  .pipe(gulp.dest('server/public/js'))
+	  .pipe(rename({
 		basename:'cp',
-		extname: '.min.js'
-	}))
-	.pipe(uglify({compress: {properties: false}, output: {'quote_keys': true}}))
-	.pipe(gulp.dest('server/public/js'))
-	.pipe(gulpif(args.watch, livereload())) // 判断 是否有watch,有的话 就 热更新
-})
+		extname:'.min.js'
+	  }))
+	  .pipe(uglify({compress:{properties:false},output:{'quote_keys':true}}))
+	  .pipe(gulp.dest('server/public/js'))
+	  .pipe(gulpif(args.watch,livereload()))
+  })
+  
